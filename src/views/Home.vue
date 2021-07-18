@@ -3,22 +3,22 @@
   {{timePretty}} <span><b> секунд</b></span> <br>
 </div>
   <div class="home" @click="ready=1">
-   <div v-if="lang=='RU'" class="textContainer d-flex border">
-     <div v-if="!ready" class="isUserReady text"> <p>Жми на меня, когда будешь готов! </p></div>
-     <div id="text" class="text-dark"><span :id="index" v-for="(letter,index) in textForTypeRU[0]" :key="textForTypeRU[0][letter]"> 
+   <div v-if="lang=='RU'" class="textContainer d-flex border ">
+     <div v-if="!ready" class="isUserReady text"> <p class="text-light">Жми на меня, когда будешь готов! </p></div>
+     <div id="text" class=""><span :id="index" v-for="(letter,index) in textForTypeRU[0]" :key="textForTypeRU[0][letter]"> 
               {{letter}}
 </span></div>
    </div>
 
-  <div v-if="lang=='EN'" class="textContainer d-flex border">
-     <div v-if="!ready" class="isUserReady text"> <p>Жми на меня, когда будешь готов! </p></div>
-     <div id="text" class="text-dark"><span :id="index" v-for="(letter,index) in textForTypeEN[0]" :key="textForTypeEN[0][letter]"> 
+  <div v-if="lang=='EN'" class="textContainer d-flex border ">
+     <div v-if="!ready" class="isUserReady text"> <p class="text-light">Жми на меня, когда будешь готов! </p></div>
+     <div id="text" class=""><span :id="index" v-for="(letter,index) in textForTypeEN[0]" :key="textForTypeEN[0][letter]"> 
               {{letter}}
 </span></div>
    </div>
    <div class="typing ">
        
-  <textarea @input="test(),changeButtonColor()" @keypress.once="timerStart()"  v-model="UserInput" class="form-control border-dark" id="floatingTextarea"></textarea>
+  <textarea @input="changeButtonColor(),test()" @keypress.once="timerStart()"  v-model="UserInput" class="form-control border-dark" id="floatingTextarea"></textarea>
 
    </div>
  
@@ -26,9 +26,9 @@
   
 <div class="line instrumental">
 
-    <div class="dropdown rounded-circle chooseSnd">
+    <div class="btn-group dropend ">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/256/sound-icon.png"  width="40" alt="" srcset="">
+     <i class="bi bi-volume-up"></i>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
       <li><a class="dropdown-item" href="#" @click="choosnSound='Iphone'">Iphone sound</a></li>
@@ -39,49 +39,52 @@
     </ul>
   </div>
 
-    <div class="dropdown rounded-circle chooseClrBg">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      color
+    <div class="btn-group dropend">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"  aria-expanded="false">
+      <i class="bi bi-palette"></i>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li class="dropdown-item"><input type="color" v-model="BGcolor1"/> bgcolor line 1</li>
-    <li class="dropdown-item"><input type="color" v-model="BGcolor2"/> bgcolor line 1</li>
-    <li class="dropdown-item"><input type="color" v-model="BGcolor3"/> bgcolor line 1</li>
-
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+    <li class="dropdown-item"><input type="color" @input="cssRootAdd()" v-model="BGcolor1"/> Цвет кнопок на первой линии</li>
+    <li class="dropdown-item"><input type="color" @input="cssRootAdd()" v-model="BGcolor2"/> Цвет кнопок на второй линии</li>
+    <li class="dropdown-item"><input type="color" @input="cssRootAdd()" v-model="BGcolor3"/> Цвет кнопок на третьей линии</li>
+    <li class="droprown-item"><input type="color" @input="cssRootAdd()" v-model="hoverCLR"/> Цвет активации кнопок</li>
     </ul>
   </div>
+
 </div>
-   <div class="line" id="1">
-     <span :style="{ backgroundColor: BGcolor1}" @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="ruButtons1" v-for="ruButtons1 in QWERTYru1" :key="ruButtons1.QWERTYru1">
+   <div class="line" id="line1">
+     <span  class="text-dark letter border rounded-circle" :id="ruButtons1" v-for="ruButtons1 in QWERTYru1" :key="ruButtons1.QWERTYru1">
        {{ruButtons1}}
        </span>
        </div>
        <br>
-   <div class="line" id="2">
-     <span :style="{ backgroundColor: BGcolor2}" @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="ruButtons2" v-for="ruButtons2 in QWERTYru2" :key="ruButtons2.QWERTYru2">
+   <div class="line" id="line2">
+     <span  class="text-dark letter border rounded-circle" :id="ruButtons2" v-for="ruButtons2 in QWERTYru2" :key="ruButtons2.QWERTYru2">
        {{ruButtons2}}
        </span>
        </div>
        <br>
-   <div class="line" id="3">
+   <div class="line" id="line3">
      <img @click="switchLang()" src="../assets/Language.png" alt="" srcset="" width="60" class="langBTN">
 
-     <span :style="{ backgroundColor: BGcolor3}" @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="ruButtons3" v-for="ruButtons3 in QWERTYru3" :key="ruButtons3.QWERTYru3">
+     <span class="text-dark letter border rounded-circle" :id="ruButtons3" v-for="ruButtons3 in QWERTYru3" :key="ruButtons3.QWERTYru3">
        {{ruButtons3}}
        </span>
        </div>
+
+       <div class="spaceBtn flex letter  border" id=" "></div>
  </div>
 
 
- <div class="qwerty" v-if="lang=='EN'">
+ <div class="qwerty" v-if="lang=='EN'" >
    <div class="line" id="1">
-     <span @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="enButtons1" v-for="enButtons1 in QWERTYen1" :key="enButtons1.QWERTYen1">
+     <span  class="text-dark letter border rounded-circle" :id="enButtons1" v-for="enButtons1 in QWERTYen1" :key="enButtons1.QWERTYen1">
        {{enButtons1}}
        </span>
        </div>
        <br>
    <div class="line" id="2">
-     <span @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="enButtons2" v-for="enButtons2 in QWERTYen2" :key="enButtons2.QWERTYen2">
+     <span class="text-dark letter border rounded-circle" :id="enButtons2" v-for="enButtons2 in QWERTYen2" :key="enButtons2.QWERTYen2">
        {{enButtons2}}
        </span>
        </div>
@@ -89,7 +92,7 @@
    <div class="line" id="3">
      <img @click="switchLang()" src="../assets/Language.png" alt="" srcset="" width="60" class="langBTN">
 
-     <span @mouseover="changeButtonColor()" class="text-dark letter border rounded-circle" :id="enButtons3" v-for="enButtons3 in QWERTYen3" :key="enButtons3.QWERTYen3">
+     <span  class="text-dark letter border rounded-circle" :id="enButtons3" v-for="enButtons3 in QWERTYen3" :key="enButtons3.QWERTYen3">
        {{enButtons3}}
        </span>
        </div>
@@ -108,9 +111,11 @@ export default {
 
   data:function(){
     return{
-      BGcolor1:'rgb(255,255,255)',
-      BGcolor2:'rgb(255,255,255)',
-      BGcolor3:'rgb(255,255,255)',
+      root: null,
+      hoverCLR:'#3232FA',
+      BGcolor1:'#ffffff',
+      BGcolor2:'#ffffff',
+      BGcolor3:'#ffffff',
       time:0,
       timePretty:'0.00',
       lang:'RU',
@@ -124,10 +129,22 @@ export default {
        UserInput:'',
     }
   },
+  mounted: function() {
+    this.root = document.documentElement;
+  },
+ 
   methods:{
     change (val) {
       console.log('change', val)
     },
+cssRootAdd: function() {
+        this.$nextTick(() => {
+            this.root.style.setProperty("--letterHov", this.hoverCLR);
+            this.root.style.setProperty("--letterBg1", this.BGcolor1);
+            this.root.style.setProperty("--letterBg2", this.BGcolor2);
+            this.root.style.setProperty("--letterBg3", this.BGcolor3);
+        })
+      },
     test(){
       function replaceAll(string, search, replace) {
         return string.toLowerCase().split(search.toLowerCase()).join(replace); 
@@ -138,23 +155,29 @@ export default {
           $el.innerHTML = replaceAll(content, search, `<${replaceTag} class="${selectedClass}">${search}</${replaceTag}>`)
 
       }
-        const $tag = document.getElementById(`${this.UserInput.length-1}`)
-      
-
+        let $tag = document.getElementById(this.UserInput.length-1)
 
     if(this.textForTypeRU[0][this.UserInput.length-1].toLowerCase()==this.UserInput[this.UserInput.length-1].toLowerCase()){
-            tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'blue', 'span')
+            tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-primary', 'span')
         }
     else if(this.textForTypeEN[0][this.UserInput.length-1].toLowerCase()==this.UserInput[this.UserInput.length-1].toLowerCase()){
-      tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'blue', 'span')
+      tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-primary', 'span')
     }
     else{
-        tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'red', 'span')
+        tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-danger', 'span')
         }
         
     },
 
-    changeButtonColor(){    
+    changeButtonColor(){   
+      let currentBTN = this.UserInput[this.UserInput.length-1]
+      let beforeStyle = document.getElementById(currentBTN.toLowerCase()).style.cssText
+            document.getElementById(currentBTN.toLowerCase()).style.cssText='background-color:var(--letterHov)!important;top: 1px; left: 1px;position: relative;'
+      setTimeout(() => {
+            document.getElementById(currentBTN.toLowerCase()).style.cssText=beforeStyle
+            return
+          }, 200)
+
       let sound1 = new Howl({
         src: [require('../assets/1.mp3')],
         volume: this.choosnSoundVol,
@@ -168,6 +191,10 @@ export default {
         src: [require('../assets/click.mp3')],
         volume: this.choosnSoundVol,
       })
+
+        
+        
+ 
               // start shiting 4 iphone sound
       function getRandomInt(max) {
             return Math.floor(Math.random() * max)
@@ -195,15 +222,7 @@ export default {
 // симпл мод: охуенно красивыо анимированные аки воллпапер жнжин фоны и простая кастомизируемая коавиатура 
 // фоный можно крутить слайдером с желли эфектом
         
-      let currentBTN = this.UserInput[this.UserInput.length-1]
-          if (currentBTN==undefined||this.UserInput.length==0||document.getElementById(`${currentBTN.toLowerCase()}`)==null){
-                return
-          } 
-      document.getElementById(`${currentBTN.toLowerCase()}`).style.cssText='background-color:#22abfe;top: 1px; left: 1px;position: relative;'
- 
-      setInterval(() => {
-            document.getElementById(`${currentBTN}`).style.cssText='background-color:white;top: 0px; left: 0px;position: relative;'
-          }, 300)
+   
       
     },
 
@@ -254,9 +273,11 @@ export default {
   }
 }
 </script>
-<style>
-   @import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,400;1,100;1,800;1,900&display=swap');
+<style scoped>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+ @import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,400;1,100;1,800;1,900&display=swap');
 
+ 
    textarea{
      width: 100%;
      height: 100%;
@@ -295,6 +316,15 @@ export default {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+} 
+#line1 span{
+background-color: var(--letterBg1);
+}
+#line2 span{
+background-color: var(--letterBg2);
+}
+#line3 span{
+background-color: var(--letterBg3);
 }
   .letter {
     width: 1.5em;
@@ -308,13 +338,14 @@ export default {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border: 1px solid #dee2e6;
+    
 }
       .letter:hover {
         position: relative;
         top: 1px;
         left: 1px;
         border-color: #e5e5e5;
-        background-color: #1d7cb8;
+        background-color: var(--letterHov)!important;
         cursor: pointer;
         }
 
@@ -325,12 +356,16 @@ export default {
   .langBTN:hover{
     filter: contrast(10);
   }
-
+  .spaceBtn{
+    width: 90%;
+    height: 6vh;
+    margin: 0 auto;
+  }
   .blue{
-    color: rgb(45, 6, 187);
+    color: rgb(77, 35, 228)!important
   }
   .red{
-    color: red;
+    color: rgb(250, 14, 14)!important;
   }
   .home{
     font-family: 'Comfortaa', cursive;
@@ -346,6 +381,7 @@ export default {
     z-index: 1;
     margin: 0 25%;
     font-size: 1.666em;
+    color: black;
   }
   .isUserReady {
       font-size: 1.777em;
@@ -373,4 +409,7 @@ export default {
     width: 100%;
     height: 100%;
   }
-</style>
+</style>>
+
+  
+
