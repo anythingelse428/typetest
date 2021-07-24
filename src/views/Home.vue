@@ -1,4 +1,5 @@
 <template>
+<HelloWorld/>
 <div class="timer">
   {{timePretty}} <span><b> секунд</b></span> <br>
 </div>
@@ -18,7 +19,7 @@
    </div>
    <div class="typing ">
        
-  <textarea @input="test()" @keypress.once="timerStart()"  v-model="UserInput" class="form-control border-dark" id="floatingTextarea"></textarea>
+  <textarea @input ="test()" @keypress.once="timerStart()"  v-model="UserInput" :placeholder="placeholderInput" class="form-control border-dark" id="floatingTextarea"></textarea>
 
    </div>
  
@@ -30,12 +31,13 @@
 
 <script>
 
-// import {Howl} from 'howler';
 import KeyBoard from '../components/KeyBoard.vue'
+import HelloWorld from '../components/HelloWorld.vue'
+
 export default {
   name: 'Home',
 components:{
-  KeyBoard
+  KeyBoard, HelloWorld
 },
   data:function(){
     return{
@@ -46,6 +48,7 @@ components:{
        textForTypeRU:["Таким образом начало повседневной работы по формированию позиции играет важную роль в формировании соответствующий условий активизации"],
        ready:0,
        UserInput:'',
+       placeholderInput:'Вы еще не узнали скорость своей печати. Приступим!'
     }
   },
  
@@ -67,14 +70,19 @@ components:{
       }
         let $tag = document.getElementById(this.UserInput.length-1)
 
-    if(this.textForTypeRU[0][this.UserInput.length-1].toLowerCase()==this.UserInput[this.UserInput.length-1].toLowerCase()){
+    if((this.textForTypeRU[0][this.UserInput.length-1].toLowerCase()==this.UserInput[this.UserInput.length-1].toLowerCase())){
             tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-primary', 'span')
+            return $tag
         }
     else if(this.textForTypeEN[0][this.UserInput.length-1].toLowerCase()==this.UserInput[this.UserInput.length-1].toLowerCase()){
       tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-primary', 'span')
+            return $tag
+      
     }
     else{
         tagSelected($tag, document.querySelector('#text').textContent[this.UserInput.length-1], 'text-danger', 'span')
+            return $tag
+
         }
         
     },
@@ -104,116 +112,22 @@ components:{
       if(this.textForTypeRU[0].toLowerCase()==this.UserInput.toLowerCase()||this.textForTypeEN[0].toLowerCase()==this.UserInput.toLowerCase()){
           switch (this.lang){
               case 'RU':
+                this.placeholderInput=Math.floor(this.textForTypeRU[0].length/(this.time/60000))+' знаков в минуту!'
               alert('Тест завершен! Ваша скорость печати = '+this.textForTypeRU[0].length/(this.time/60000)+' знаков в минуту!')
               break
               case 'EN':
+                this.placeholderInput=Math.floor(this.textForTypeEN[0].length/(this.time/60000))+' знаков в минуту!'
               alert('Тест завершен! Ваша скорость печати = '+this.textForTypeEN[0].length/(this.time/60000)+' знаков в минуту!')
               break
             }
+            
         return this.UserInput=''
 }
-  }
+  },
+
 }
 </script>
-<style scoped>
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
-@import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,400;1,100;1,800;1,900&display=swap');
-   textarea{
-     width: 100%;
-     height: 100%;
-     resize: none;
-   }
-  .timer{
-    font-weight: 900;
-    font-family: 'Tourney', cursive;
-    font-size: 2em;
-    font-style: italic;
-  }
-      .timer span{
-        font-size: .8em;
-        font-family: 'Comfortaa', cursive;
-        text-transform: uppercase;
-      }
- 
- 
-  .home{
-    font-family: 'Comfortaa', cursive;
-    width: 75vw;
-    height: 50vh;
-    color: aliceblue;
-    display: flex;
-    flex-direction:column;
-  }
-  .textContainer{
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    font-size: 1.666em;
-    color: black;
-  }
-  .isUserReady {
-      font-size: 1.777em;
-      height: 100%;
-      width: 100%;
-      z-index: 10;
-      position: absolute;
-      background: rgba(64, 6, 199, 0.95);
-      display: flex;
-      justify-content: space-around;
-      align-content: space-around;
-      flex-wrap: wrap;
-      align-items: center;
-  }
-  .typing {
-      display: flex;
-      position: relative;
 
-      width: 100%;
-      height: 10vh;
-  }
-  .input{
-    width: 100%;
-    height: 100%;
-  }
-
-   @media screen  and (max-width: 600px){
-    .isUserReady {
-    font-size: 1em;
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    position: absolute;
-    background: rgba(64, 6, 199, 0.95);
-    display: flex;
-    justify-content: space-around;
-    align-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
-}
-     .textContainer {
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    font-size: 0.777em;
-    color: black;
-}
- }
- @media screen  and (max-width: 768px) and (min-width: 600px){
-     .isUserReady {
-    font-size: 1.337em;
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    position: absolute;
-    background: rgba(64, 6, 199, 0.95);
-    display: flex;
-    justify-content: space-around;
-    align-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
-}
- }
-</style>>
 
   
 
