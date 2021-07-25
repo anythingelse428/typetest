@@ -1,6 +1,6 @@
 <template>
   <div v-if="showHello" class="hello"> 
-    <i @click="showHello=false" class="bi bi-x-lg"></i>
+    <i @click="close()" class="bi bi-x-lg"></i>
     <h1>Привет! Хочешь узнать свою скорость печати?</h1>
     
     <ul>
@@ -16,8 +16,19 @@
 export default {
   name: 'HelloWorld',
   data () {
-    return{
-      showHello: true,
+    return {
+      showHello: false,
+    }
+  },
+  mounted () {
+    // показываем только однажды
+    const isShowHello = localStorage.getItem('showHello') || 'false'
+    if (isShowHello === 'false') this.showHello = true
+  },
+  methods: {
+    close () {
+      localStorage.setItem('showHello', 'true')
+      this.showHello = false
     }
   }
 }
