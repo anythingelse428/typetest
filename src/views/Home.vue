@@ -10,7 +10,7 @@
         <div v-if="!ready" class="isUserReady text py-3">
           <p class="text-light my-0">Жми на меня, когда будешь готов!</p>
         </div>
-        <div id="text">
+        <div id="text text-monospace">
           <span :class="letterSetClass(letter, letterId)" v-for="(letter, letterId) in textForTypeRU[0]" :key="textForTypeRU[0][letter]">{{ letter }}</span>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quae inventore, nam, impedit ad veritatis neque ex atque perspiciatis quo, dicta cupiditate! Odit perferendis libero esse et accusantium, commodi vero?",
       ],
       textForTypeRU: [
-        "Таким образом начало повседневной работы по формированию позиции играет важную роль в формировании соответствующий условий активизации",
+        "В четверг четвертого числа в четыре с четвертью часа лигурийский регулировщик регулировал в Лигурии, но тридцать три корабля лавировали, лавировали, да так и не вылавировали, а потом протокол про протокол протоколом запротоколировал. Как интервьюером интервьюируемый лигурийский регулировщик речисто, да не чисто рапортовал, да не дорапортовал, дорапортовывал. Да так зарапортовался про размокропогодившуюся погоду, что дабы инцидент не стал претендентом на судебный прецедент, лигурийский регулировщик акклиматизировался в неконституционном Константинополе.",
       ],
       ready: 0,
       UserInput: "",
@@ -81,8 +81,8 @@ export default {
           - Доделать нормальный вывод результата
       */
 
-      if (letter === this.UserInput[letterId]) return 'letter-duration letter--success'
-      else return 'letter-duration letter--danger'
+      if (letter === this.UserInput[letterId]) return 'letter-duration letter--success text-decoration-line-through'
+      else return 'letter-duration letter--danger text-decoration-line-through'
     },
     timerStart() {
       let starttime = Date.now()
