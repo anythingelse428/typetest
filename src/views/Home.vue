@@ -11,21 +11,20 @@
           <p class="text-light my-0">Жми на меня, когда будешь готов!</p>
         </div>
         <div id="text">
-          <span :id="index" v-for="(letter, index) in textForTypeRU[0]" :key="textForTypeRU[0][letter]">{{ letter }}</span>
+          <span :class="letterSetClass(letter, letterId)" v-for="(letter, letterId) in textForTypeRU[0]" :key="textForTypeRU[0][letter]">{{ letter }}</span>
         </div>
       </div>
 
       <div v-if="lang == 'EN'" class="textContainer d-flex mb-3">
         <div v-if="!ready" class="isUserReady text py-3">
-          <p class="text-light my-0">Жми на меня, когда будешь готов!</p>
+          <p class="text-light my-0">Click me, if you ready!</p>
         </div>
         <div id="text">
-          <span :id="index" v-for="(letter, index) in textForTypeEN[0]" :key="textForTypeEN[0][letter]">{{ letter }}</span>
+          <span :class="letterSetClass(letter, letterId)" v-for="(letter, letterId) in textForTypeEN[0]" :key="textForTypeEN[0][letter]">{{ letter }}</span>
         </div>
       </div>
       <div class="typing mb-3">
         <textarea
-          @input="test()"
           @keypress.once="timerStart()"
           v-model="UserInput"
           :placeholder="placeholderInput"
@@ -40,8 +39,8 @@
 </template>
 
 <script>
-import KeyBoard from "../components/KeyBoard.vue";
-import HelloWorld from "../components/HelloWorld.vue";
+import KeyBoard from "../components/KeyBoard.vue"
+import HelloWorld from "../components/HelloWorld.vue"
 
 export default {
   name: "Home",
@@ -63,69 +62,23 @@ export default {
       ready: 0,
       UserInput: "",
       placeholderInput: "Вы еще не узнали скорость своей печати. Приступим!",
-    };
+    }
   },
 
   methods: {
     change(val) {
-      console.log("change", val);
+      console.log("change", val)
     },
+    letterSetClass (letter, letterId) {
+      const UserInputLength = this.UserInput.length
+      if (letterId === UserInputLength) return 'letter-duration letter--cursor'
+      if (letterId > UserInputLength - 1) return 'letter-duration letter--default'
 
-    test() {
-      function replaceAll(string, search, replace) {
-        return string.toLowerCase().split(search.toLowerCase()).join(replace);
-      }
-      function tagSelected($el, search, selectedClass, replaceTag = "span") {
-        const content = $el.textContent;
-
-        $el.innerHTML = replaceAll(
-          content,
-          search,
-          `<${replaceTag} class="${selectedClass}">${search}</${replaceTag}>`
-        );
-      }
-      let $tag = document.getElementById(this.UserInput.length - 1);
-
-      if (
-        this.textForTypeRU[0][this.UserInput.length - 1].toLowerCase() ==
-        this.UserInput[this.UserInput.length - 1].toLowerCase()
-      ) {
-        tagSelected(
-          $tag,
-          document.querySelector("#text").textContent[
-            this.UserInput.length - 1
-          ],
-          "text-primary",
-          "span"
-        );
-        return $tag;
-      } else if (
-        this.textForTypeEN[0][this.UserInput.length - 1].toLowerCase() ==
-        this.UserInput[this.UserInput.length - 1].toLowerCase()
-      ) {
-        tagSelected(
-          $tag,
-          document.querySelector("#text").textContent[
-            this.UserInput.length - 1
-          ],
-          "text-primary",
-          "span"
-        );
-        return $tag;
-      } else {
-        tagSelected(
-          $tag,
-          document.querySelector("#text").textContent[
-            this.UserInput.length - 1
-          ],
-          "text-danger",
-          "span"
-        );
-        return $tag;
-      }
+      if (letter === this.UserInput[letterId]) return 'letter-duration letter--success'
+      else return 'letter-duration letter--danger'
     },
     timerStart() {
-      let starttime = Date.now();
+      let starttime = Date.now()
       setInterval(() => {
         if (
           (this.UserInput.length > 0) &
@@ -133,24 +86,24 @@ export default {
             this.UserInput.toLowerCase() ||
             this.textForTypeEN[0].toLowerCase() != this.UserInput.toLowerCase())
         ) {
-          this.time = Date.now() - starttime;
+          this.time = Date.now() - starttime
           this.timePretty =
             `${Math.floor((Date.now() - starttime) / 1000)}` +
             "." +
-            `${Math.floor((Date.now() - starttime) % 1000)}`;
+            `${Math.floor((Date.now() - starttime) % 1000)}`
         }
         if (this.UserInput == "") {
-          this.timePretty = "0.00";
-          this.time = Date.now();
-          starttime = Date.now();
-          clearInterval();
-          return;
+          this.timePretty = "0.00"
+          this.time = Date.now()
+          starttime = Date.now()
+          clearInterval()
+          return
         }
-      }, 1);
+      }, 100)
     },
   },
 
-  beforeUpdate: function () {
+  beforeUpdate () {
     if (
       this.textForTypeRU[0].toLowerCase() == this.UserInput.toLowerCase() ||
       this.textForTypeEN[0].toLowerCase() == this.UserInput.toLowerCase()
@@ -159,31 +112,46 @@ export default {
         case "RU":
           this.placeholderInput =
             Math.floor(this.textForTypeRU[0].length / (this.time / 60000)) +
-            " знаков в минуту!";
+            " знаков в минуту!"
           alert(
             "Тест завершен! Ваша скорость печати = " +
               this.textForTypeRU[0].length / (this.time / 60000) +
               " знаков в минуту!"
-          );
-          break;
+          )
+          break
         case "EN":
           this.placeholderInput =
             Math.floor(this.textForTypeEN[0].length / (this.time / 60000)) +
-            " знаков в минуту!";
+            " знаков в минуту!"
           alert(
             "Тест завершен! Ваша скорость печати = " +
               this.textForTypeEN[0].length / (this.time / 60000) +
               " знаков в минуту!"
-          );
-          break;
+          )
+          break
       }
 
-      return (this.UserInput = "");
+      return (this.UserInput = "")
     }
   },
-};
+}
 </script>
 
-
-  
-
+<style>
+  .letter-duration {
+    transition-property: background-color, color, border-color !important;
+    transition-duration: 0.1 !important;
+  }
+  .letter--cursor {
+    color: #1266F1 !important;
+  }
+  .letter--default {
+    color: #262626 !important;
+  }
+  .letter--success {
+    color: #00B74A !important;
+  }
+  .letter--danger {
+    color: #F93154 !important;
+  }
+</style>

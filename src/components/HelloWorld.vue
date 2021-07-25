@@ -15,9 +15,9 @@
 <script>
 export default {
   name: 'HelloWorld',
-  data:function(){
+  data () {
     return{
-      showHello: false,
+      showHello: true,
     }
   }
 }
