@@ -17,15 +17,14 @@ export default {
   name: 'HelloWorld',
   data:function(){
     return{
-      showHello:true,
+      showHello: false,
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.hello{
+.hello {
   font-size:1.5em ;
   position: absolute;
   z-index: 100500;
@@ -35,13 +34,13 @@ export default {
   color: aliceblue;
   background-color: #112871f7
 }
-i{
+i {
   cursor: pointer;
   font-size: 2em;
   color: aliceblue!important;;
   margin-left: 95%;
 }
-ul{
+ul {
   margin-top: 2em;
   text-align: left;
 }

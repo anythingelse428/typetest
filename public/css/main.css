@@ -20,6 +20,7 @@
   --letterBorder: #9cdfcb;
   --text: #080514;
   --isUserReadyBg: #5b13fff2;
+  --bg-color: white;
 }
 
 [scheme=blue] {
@@ -30,6 +31,7 @@
   --letterBorder: #3270fd;
   --text: #f8fcff;
   --isUserReadyBg: #5b13fff2;
+  --bg-color: #eeefff;
 }
 
 [scheme=red] {
@@ -40,6 +42,7 @@
   --letterBorder: #ffb94f;
   --text: #fffbfb;
   --isUserReadyBg: #f23d3df2;
+  --bg-color: #fff5f5;
 }
 
 [scheme=dark] {
@@ -50,6 +53,7 @@
   --letterBorder: #545454;
   --text: #f5f5f5;
   --isUserReadyBg: #0e0e0ef2;
+  --bg-color: #ebebeb;
 }
 
 /* App Setting */
@@ -62,6 +66,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: var(--bg-color);
 }
 
 /* Header */
@@ -99,7 +104,6 @@ i{
   color: var(--text)!important;
   position: relative;
   display: flex;
-  width: 70vw;
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
