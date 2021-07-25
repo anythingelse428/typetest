@@ -74,6 +74,13 @@ export default {
       if (letterId === UserInputLength) return 'letter-duration letter--cursor'
       if (letterId > UserInputLength - 1) return 'letter-duration letter--default'
 
+      /*  
+        TODO:
+          - Заменять пробелы на цвет, либо |, что бы было ясно что куда откуда
+          - Кидать варну если неверная раскладка
+          - Доделать нормальный вывод результата
+      */
+
       if (letter === this.UserInput[letterId]) return 'letter-duration letter--success'
       else return 'letter-duration letter--danger'
     },
