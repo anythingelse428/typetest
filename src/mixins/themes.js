@@ -7,10 +7,15 @@ const ThemeList = [
 
 const Themes = {
   _el: undefined,
+  _selector: 'body',
 
-  init () {
+  init (selector = '') {
+    // Setings
+    if (!selector) selector = this._selector
+    else this._selector = selector
+
     // init $dom element <body>
-    this._el = document.querySelector('#app')
+    this._el = document.querySelector(selector)
 
     // get
     const theme = this.get()
