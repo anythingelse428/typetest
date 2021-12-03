@@ -47,7 +47,7 @@ i {
   cursor: pointer;
   font-size: 2em;
   color: aliceblue!important;;
-  margin-left: 95%;
+  margin-left: 90%;
 }
 ul {
   margin-top: 2em;

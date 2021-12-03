@@ -172,6 +172,9 @@ i{
 }
 
 @media screen and (max-width: 600px) {
+  .instrumental,.qwerty{
+    display: none;
+  }
   .textContainer, #text {
     font-size: .666em;
   }
