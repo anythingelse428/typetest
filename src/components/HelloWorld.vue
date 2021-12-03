@@ -40,8 +40,6 @@ export default {
   position: absolute;
   z-index: 100500;
   top:10vh;
-  width: 75vw;
-  height: 80vh;
   color: aliceblue;
   background-color: #112871f7
 }

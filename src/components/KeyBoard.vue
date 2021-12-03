@@ -75,6 +75,10 @@
           <input type="color" @input="cssRootAdd()" v-model="textClr" /> Цвет
           текста
         </li>
+                <li class="dropdown-item">
+          <input type="color" @input="cssRootAdd()" v-model="textClr" /> Цвет
+          текста
+        </li>
       </ul>
     </div>
   </div>
@@ -256,8 +260,7 @@ export default {
         }
       }
 
-      // симпл мод: охуенно красивыо анимированные аки воллпапер жнжин фоны и простая кастомизируемая коавиатура
-      // фоный можно крутить слайдером с желли эфектом
+    //завезти валпапер енжин 
     },
 
     switchLang() {
