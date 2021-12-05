@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showHello" class="hello"> 
+  <div v-show="showHello" class="hello"> 
     <i @click="close()" class="bi bi-x-lg"></i>
     <h1>Привет! Хочешь узнать свою скорость печати?</h1>
     

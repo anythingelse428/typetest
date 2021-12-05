@@ -1,5 +1,5 @@
 <template>
-  <div id="nav" class="d-flex w-100 justify-content-between border-bottom mb-5">
+  <div id="nav" class="d-flex w-100 justify-content-between border-bottom mb-3">
     <router-link
       class="
         d-flex

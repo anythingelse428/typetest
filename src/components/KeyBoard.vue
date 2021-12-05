@@ -86,7 +86,7 @@
     <div class="line" id="line1">
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         ref="ruButtons1"
         :id="ruButtons1"
         v-for="ruButtons1 in QWERTYru1"
@@ -99,7 +99,7 @@
     <div class="line" id="line2">
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         :id="ruButtons2"
         v-for="ruButtons2 in QWERTYru2"
         :key="ruButtons2.QWERTYru2"
@@ -112,23 +112,24 @@
       <i @click="switchLang()" class="bi bi-globe langBTN"></i>
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         :id="ruButtons3"
         v-for="ruButtons3 in QWERTYru3"
         :key="ruButtons3.QWERTYru3"
       >
         {{ ruButtons3 }}
       </span>
+     <i class="bi bi-backspace" @click='$emit("backspase", $event.target)'></i>
     </div>
 
-    <div class="spaceBtn flex letter border rounded-2" id=" "></div>
+    <div class="spaceBtn flex letter border rounded-2" id=" " @click='$emit("customChange", $event.target)'> </div>
   </div>
 
   <div class="qwerty align-items-center" v-if="lang == 'EN'">
     <div class="line" id="line1">
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         :id="enButtons1"
         v-for="enButtons1 in QWERTYen1"
         :key="enButtons1.QWERTYen1"
@@ -140,7 +141,7 @@
     <div class="line" id="line2">
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         :id="enButtons2"
         v-for="enButtons2 in QWERTYen2"
         :key="enButtons2.QWERTYen2"
@@ -153,7 +154,7 @@
       <i @click="switchLang()" class="bi bi-globe langBTN"></i>
       <span
         class="letter border rounded-circle btnFix"
-        @click="addToIntput()"
+        @click='$emit("customChange", $event.target)'
         :id="enButtons3"
         v-for="enButtons3 in QWERTYen3"
         :key="enButtons3.QWERTYen3"
@@ -163,20 +164,19 @@
     </div>
     <div
       class="spaceBtn flex letter border rounded-2"
-      @click="addToIntput()"
+      @click='$emit("customChange", $event.target)'
       id=" "
-    ></div>
+    > </div>
   </div>
 </template>
 <script>
 import { Howl } from "howler"
-
 export default {
   name: "KeyBoard",
   props: {
     UserInput: String,
   },
-  data: function () {
+  data() {
     return {
       QWERTYen1: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
       QWERTYen2: ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
@@ -197,7 +197,6 @@ export default {
       choosnSoundVol: 0.7,
     }
   },
-
   methods: {
     cssRootAdd: function () {
       this.$nextTick(() => {
@@ -211,19 +210,16 @@ export default {
     },
 
     changeButtonColor() {
-      let currentBTN = this.UserInput[this.UserInput.length - 1]
-      let beforeStyle = document.getElementById(currentBTN.toLowerCase()).style
-        .cssText
-      console.log(beforeStyle)
+      let currentBTN = this.UserInput[this.UserInput.length-1]
+      let beforeStyle = document.querySelector(`#${currentBTN.toLowerCase()}`).style.cssText
+      console.log(beforeStyle+'!!!')
 
       document.getElementById(currentBTN.toLowerCase()).style.cssText =
-        "background-color:var(--letterHov)!importanttop: 1px left: 1pxposition: relativeborder:3px solid var(--letterBorder)!important"
+        "background-color:var(--letterHov)!important;top: 1px; left: 1px;position: relative;border:3px solid var(--letterBorder)!important"
       setTimeout(() => {
-        document.getElementById(currentBTN.toLowerCase()).style.cssText =
-          beforeStyle
-        return
-      }, 112)
-
+        document.getElementById(currentBTN.toLowerCase()).style.cssText = beforeStyle
+      }, 250)
+      // console.log(beforeStyle);
       let sound1 = new Howl({
         src: [require("../assets/1.mp3")],
         volume: this.choosnSoundVol,
@@ -273,9 +269,7 @@ export default {
       }
       console.log(this.lang)
     },
-    addToIntput() {
-      console.log(this.$refs.ruButtons1)
-    },
+
   },
 
   mounted () {
@@ -285,6 +279,7 @@ export default {
     UserInput: function () {
       this.changeButtonColor()
     },
+
   },
 }
 </script>

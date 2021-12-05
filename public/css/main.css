@@ -83,8 +83,8 @@
 
 /* keyboard styles */
 .btnFix{
-  width: 5vw;
-  height: 5vw;
+  width: 9vw;
+  height: 9vw;
 }
 
 .instrumental{
@@ -111,7 +111,7 @@ i{
 }
 
 .line {
-  width: 70vw;
+  width: 100%;
   display: inline-flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -172,24 +172,20 @@ i{
 }
 
 @media screen and (max-width: 600px) {
-  .instrumental,.qwerty{
-    display: none;
-  }
+
   .textContainer, #text {
     font-size: .666em;
   }
   .letter {
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: 100;
-    margin: 0 .5% .5% 0;
+    margin: 0 .25% 0.25% 0;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border: 1px solid #dee2e6;
+
   }
   .langBTN {
     color: black;
@@ -241,7 +237,6 @@ i{
 /* Timer */
 textarea{
   width: 100%;
-  height: 100%;
   resize: none;
 }
 
@@ -261,11 +256,8 @@ textarea{
 /* Home */
 .home{
   font-family: 'Comfortaa', cursive;
-  width: 75vw;
-  height: 50vh;
-  color: aliceblue;
-  display: flex;
-  flex-direction:column;
+  width: 99%;
+  color: var(--text);
 }
 
 .textContainer{
