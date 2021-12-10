@@ -43,9 +43,9 @@
         {{ resultText }}
       </h4>
     </div>
-    <div class="home console" @click="setFocus()">
-      <div v-if="lang == 'RU'" class="textContainer d-flex mb-3">
-        <div v-if="!ready" class="isUserReady">
+    <div class="home console">
+      <div v-if="lang == 'RU'" class="textContainer d-flex mb-3"  @click="ready=true, $refs.textArea.focus()">
+        <div v-if="!ready" class="isUserReady" >
           <p class="text-light my-0">
             Жми на меня, когда будешь готов!<br />
             И начинай печатать!
@@ -74,22 +74,41 @@
         </div>
       </div>
       <div class="my-0 py-0">
-        <i class="bi bi-eye" v-show="!showInputText" @click="showInputText=true"></i>
-        <i class="bi bi-eye-slash" v-show="showInputText" @click="showInputText=false"></i>
+        <i
+          class="bi bi-eye  text-dark"
+          v-show="!showInputText"
+          @click="showInputText = true"
+        ></i>
+        <i
+          class="bi bi-eye-slash text-dark"
+          v-show="showInputText"
+          @click="showInputText = false"
+        ></i>
         <textarea
           ref="textArea"
           tabindex="0"
-          @keypress.once="timerStart()"
+          @input.once="timerStart('start')"
           :value="UserInput"
           @input="UserInput = $event.target.value"
           :placeholder="placeholderInput"
           class="form-control my-0 py-0"
           :class="{ showInputText: showInputText }"
           :inputmode="inputmodeAllow"
-
+          autofocus
         ></textarea>
       </div>
-      <KeyBoard :UserInput="UserInput" @custom-change="addFromKeyboard" @backspase="backspace"/>
+      <div class="langAlert" v-show="keyboardAlert">
+        <div class="langAlert__text">Поменяйте раскладку клавиатуры!</div>
+        <button class="langAlert__confirmButton btn btn-success mt-3" @click="keyboardAlert = false,UserInput = ''">
+          Готово
+        </button>
+      </div>
+      <KeyBoard
+        :UserInput="UserInput"
+        @custom-change="addFromKeyboard"
+        @backspase="backspace"
+        @what-lang="langCheck"
+      />
     </div>
   </div>
 </template>
@@ -100,6 +119,7 @@ import HelloWorld from "../components/HelloWorld.vue";
 
 export default {
   name: "Home",
+
   components: {
     KeyBoard,
     HelloWorld,
@@ -107,8 +127,9 @@ export default {
   data() {
     return {
       showModal: false,
-      showInputText:false,
+      showInputText: false,
       inputmodeAllow: "text",
+      clickedLetter: "",
       lang: "RU",
       time: 0,
       timePretty: "0.00",
@@ -123,6 +144,7 @@ export default {
       placeholderInput: "Здесь будет отображаться то, что Вы ввели",
       resultText: "",
       isShowResult: false,
+      keyboardAlert: false,
     };
   },
 
@@ -131,38 +153,40 @@ export default {
       this.UserInput = this.UserInput + event.innerText;
       if (event.innerText == "") this.UserInput = this.UserInput + " ";
     },
-    backspace(){
-      this.UserInput  =  this.UserInput.slice(0, -1)
+    langCheck(newLang) {
+      this.lang = newLang;
     },
-    setFocus() {
-      this.isShowResult = false;
-      this.ready = true;
-      this.$refs.textArea.focus();
-      if(!this.$refs.textArea) return;
+    backspace() {
+      this.UserInput = this.UserInput.slice(0, -1);
     },
+    wakey(btn) {
+      return (this.clickedLetter = btn);
+    },
+
     letterSetClass(letter, letterId) {
       const UserInputLength = this.UserInput.length;
       if (letterId === UserInputLength) return "letter-duration letter--cursor";
       if (letterId > UserInputLength - 1)
-        return "letter-duration letter--default";
-
+        return "letter-duration letter--default"
       /*  
         TODO:
           - Заменять пробелы на цвет, либо |, что бы было ясно что куда откуда|/
-          - Кидать варну если неверная раскладка
+          - Кидать варну если неверная раскладка |/
           - Доделать нормальный вывод результата
       */
 
-      this.bu();
+      this.result();
       if (letter.toLowerCase() === this.UserInput[letterId].toLowerCase())
         return "letter-duration letter--success text-decoration-line-through";
       else return "letter-duration letter--danger text-decoration-line-through";
     },
-    timerStart() {
+    timerStart(action) {
       let starttime = Date.now();
+
       setInterval(() => {
         if (
           (this.UserInput.length > 0) &
+          (action == "start") &
           (this.textForTypeRU[0].toLowerCase() !=
             this.UserInput.toLowerCase() ||
             this.textForTypeEN[0].toLowerCase() != this.UserInput.toLowerCase())
@@ -173,16 +197,19 @@ export default {
             "." +
             `${Math.floor((Date.now() - starttime) % 1000)}`;
         }
-        if (this.UserInput == "") {
+        if (this.UserInput == ""||this.keyboardAlert) {
           this.timePretty = "0.00";
           this.time = Date.now();
           starttime = Date.now();
           clearInterval();
           return;
         }
+       else {
+          action = "start";
+        }
       }, 100);
     },
-    bu() {
+    result() {
       if (
         this.textForTypeRU[0].toLowerCase() == this.UserInput.toLowerCase() ||
         this.textForTypeEN[0].toLowerCase() == this.UserInput.toLowerCase()
@@ -215,6 +242,19 @@ export default {
       }
     },
   },
+  watch: {
+    UserInput(newInput, oldInput) {
+      let button = newInput.replace(oldInput, "");
+      let enRegex = /^[a-zA-Z]+$/;
+      let ruRegex = /^[а-яА-ЯёЁ]+$/;
+      if (this.lang == "RU" && enRegex.test(button)) {
+        this.keyboardAlert = true;
+      }
+      if (this.lang == "EN" && ruRegex.test(button)) {
+        this.keyboardAlert = true;
+      }
+    },
+  },
 };
 </script>
 
@@ -231,15 +271,13 @@ export default {
   right: 0;
   padding: 1.2em;
 }
-textarea{
+textarea {
   opacity: 0;
+  z-index: -1;
 }
-.showInputText{
-  opacity: 1!important;
-  
-}
-.console {
-  cursor: pointer;
+.showInputText {
+  opacity: 1 !important;
+  z-index: 1 !important;
 }
 .letter-duration {
   transition-property: background-color, color, border-color !important;
@@ -249,7 +287,7 @@ textarea{
   color: #1266f1 !important;
 }
 .letter--cursor::after {
-  content: "|";
+  content: "| ";
   color: #00b74a;
   animation-duration: 300ms;
   margin-left: -0.2em;

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,400;1,100;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,400;1,100;1,800;1,900&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
-
 
 :root {
   --theme-duration: 0.5s;
+  --letterSize: 5vw;
 }
 
 * {
@@ -12,45 +12,25 @@
 }
 
 /* Pallets */
-[scheme=default] {
-  --letterHov: #7e7cec;
-  --letterBg1: #ef7b79;
-  --letterBg2: #edef79;
-  --letterBg3: #79edef;
-  --letterBorder: #9cdfcb;
+[scheme="default"] {
   --text: #080514;
   --isUserReadyBg: #5b13fff2;
   --bg-color: white;
 }
 
-[scheme=blue] {
-  --letterHov: #58e8ff;
-  --letterBg1: #84aaff;
-  --letterBg2: #6493fe;
-  --letterBg3: #3270fd;
-  --letterBorder: #3270fd;
+[scheme="blue"] {
   --text: #f8fcff;
   --isUserReadyBg: #5b13fff2;
   --bg-color: #eeefff;
 }
 
-[scheme=red] {
-  --letterHov: #ff953b;
-  --letterBg1: #f84444;
-  --letterBg2: #ff0018;
-  --letterBg3: #ff162c;
-  --letterBorder: #ffb94f;
+[scheme="red"] {
   --text: #fffbfb;
   --isUserReadyBg: #f23d3df2;
   --bg-color: #fff5f5;
 }
 
-[scheme=dark] {
-  --letterHov: #949494;
-  --letterBg1: #000;
-  --letterBg2: #000;
-  --letterBg3: #000;
-  --letterBorder: #545454;
+[scheme="dark"] {
   --text: #f5f5f5;
   --isUserReadyBg: #0e0e0ef2;
   --bg-color: #ebebeb;
@@ -77,131 +57,81 @@
   font-weight: bold;
 }
 
-.themeToggler i{ 
+.themeToggler i {
   cursor: pointer;
 }
 
 /* keyboard styles */
-.btnFix{
-  width: 9vw;
-  height: 9vw;
+
+
+.instrumental {
+  margin: .2em auto;
 }
 
-.instrumental{
-  margin: 1em auto;
-}
-
-.chooseSnd{
+.chooseSnd {
   position: relative;
   right: 5vw;
 }
 
-i{
-  color: var(--text)!important;
-}
 
-.qwerty {
-  color: var(--text)!important;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.line {
-  width: 100%;
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-
-}
-
-#line1 span{
-  background-color:var(--letterBg1);
-}
-
-#line2 span{
-  background-color: var(--letterBg2);
-}
-
-#line3 span{
-  background-color: var(--letterBg3);
-}
-
-.letter {
-  font-family: 'Roboto', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 100;
-  margin: 0 .5% .5% 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border: 1px solid #dee2e6;
-}
-.letter:hover {
+/* .letter:hover {
   position: relative;
   bottom: 2px;
   right: 2px;
-  border:3px solid var(--letterBorder)!important;
-  background-color: var(--letterHov)!important;
+  border: 3px solid var(--letterBorder) !important;
+  background-color: var(--letterHov) !important;
   cursor: pointer;
-}
+} */
 
-.langBTN{
-  color: black!important;
-  font-size: 3em;
+.langBTN {
+  color: black !important;
   cursor: pointer;
   margin-right: 1%;
 }
-
-.langBTN:hover{
+.langAlert {
+  display: block;
+  top: 5em;
+  position: fixed;
+  z-index: 100501;
+  background: #0a0a0a96;
+  color: aliceblue;
+  left: 0;
+  right: 0;
+  padding: 4em;
+}
+.langBTN:hover {
   filter: contrast(10);
 }
 
-.spaceBtn{
-  width: 90%;
-  height: 5vw;
-  margin: 0 auto;
-}
-
 @media screen and (max-width: 600px) {
-
-  .textContainer, #text {
-    font-size: .666em;
+  .textContainer,
+  #text {
+    font-size: 0.666em;
   }
+
   .letter {
-    font-family: 'Roboto', sans-serif;
-    font-size: 2rem;
+    font-family: "Roboto", sans-serif;
+    font-size: calc(var(--letterSize) * 0.45);
     font-weight: 100;
-    margin: 0 .25% 0.25% 0;
+    margin: 0 0.25% 0.25% 0;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-
   }
   .langBTN {
     color: black;
-    font-size: .9em;
     cursor: pointer;
     margin-right: 1%;
   }
 }
 
 @media screen and (max-width: 768px) and (min-width: 600px) {
-
   .letter {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
+    font-family: "Roboto", sans-serif;
+    font-size: calc(var(--letterSize) * 0.5);
     font-weight: 100;
-    margin: 0 .5% .5% 0;
+    margin: 0 0.5% 0.5% 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -212,18 +142,18 @@ i{
   }
   .langBTN {
     color: black;
-    font-size: 1.5rem;
+    font-size: calc(var(--letterSize) * 0.5);
     cursor: pointer;
     margin-right: 1%;
   }
 }
 
-@media screen  and (max-width: 1024px) and (min-width: 769px) {
-  .letter{
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.7rem;
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .letter {
+    font-family: "Roboto", sans-serif;
+    font-size: calc(var(--letterSize) * 0.5);
     font-weight: 100;
-    margin: 0 .5% .5% 0;
+    margin: 0 0.5% 0.5% 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -235,32 +165,33 @@ i{
 }
 
 /* Timer */
-textarea{
+textarea {
   width: 100%;
   resize: none;
 }
 
-.timer{
+.timer {
   font-weight: 900;
-  font-family: 'Tourney', cursive;
+  font-family: "Tourney", cursive;
   font-size: 2em;
   font-style: italic;
+  color: var(--bs-success);
 }
 
-.timer span{
-  font-size: .8em;
-  font-family: 'Comfortaa', cursive;
+.timer span {
+  font-size: 0.8em;
+  font-family: "Comfortaa", cursive;
   text-transform: uppercase;
 }
 
 /* Home */
-.home{
-  font-family: 'Comfortaa', cursive;
+.home {
+  font-family: "Comfortaa", cursive;
   width: 99%;
   color: var(--text);
 }
 
-.textContainer{
+.textContainer {
   width: 100%;
   position: relative;
   z-index: 1;
@@ -289,12 +220,15 @@ textarea{
   height: 10vh;
 }
 
-.input{
+.input {
   width: 100%;
   height: 100%;
 }
 
-@media screen  and (max-width: 600px){
+@media screen and (max-width: 600px) {
+  .btnFix {
+
+  }
   .isUserReady {
     font-size: 1em;
     height: 100%;
@@ -316,7 +250,7 @@ textarea{
     color: black;
   }
 }
-@media screen  and (max-width: 768px) and (min-width: 600px){
+@media screen and (max-width: 768px) and (min-width: 600px) {
   .isUserReady {
     font-size: 1.337em;
     height: 100%;
