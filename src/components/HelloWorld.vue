@@ -1,10 +1,13 @@
 <template>
-  <div v-show="showHello" class="hello"> 
+  <div v-show="showHello" class="hello">
     <i @click="close()" class="bi bi-x-lg"></i>
-    <h1>Привет! Хочешь узнать свою скорость печати?</h1>
-    
+    <h1>Привет! Впревые тут?</h1>
+
     <ul>
-      <li>Всё очень просто, если не хочешь знать всех фичей - закрывай это окно и приступай!</li>
+      <li>
+        Всё очень просто, если не хочешь знать всех фичей - закрывай это окно и
+        приступай!
+      </li>
       <li>Меняй темы оформления кнопками сверху справа</li>
       <li>Кастомизируй оформление кнопками над виртуальной клавиатурой</li>
       <li>Тест закончится автоматически сразу после точного ввода текста</li>
@@ -14,39 +17,39 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
+  name: "HelloWorld",
+  data() {
     return {
       showHello: false,
-    }
+    };
   },
-  mounted () {
+  mounted() {
     // показываем только однажды
-    const isShowHello = localStorage.getItem('showHello') || 'false'
-    if (isShowHello === 'false') this.showHello = true
+    const isShowHello = localStorage.getItem("showHello") || "false";
+    if (isShowHello === "false") this.showHello = true;
   },
   methods: {
-    close () {
-      localStorage.setItem('showHello', 'true')
-      this.showHello = false
-    }
-  }
-}
+    close() {
+      localStorage.setItem("showHello", "true");
+      this.showHello = false;
+    },
+  },
+};
 </script>
 
 <style scoped>
 .hello {
-  font-size:1.5em ;
+  font-size: 1.5em;
   position: absolute;
   z-index: 100500;
-  top:10vh;
+  top: 10vh;
   color: aliceblue;
-  background-color: #112871f7
+  background-color: #112871f7;
 }
 i {
   cursor: pointer;
   font-size: 2em;
-  color: aliceblue!important;;
+  color: aliceblue !important;
   margin-left: 90%;
 }
 ul {

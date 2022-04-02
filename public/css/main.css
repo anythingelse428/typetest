@@ -3,7 +3,7 @@
 
 :root {
   --theme-duration: 0.5s;
-  --letterSize: 5vw;
+  --letter-size: 5vw;
 }
 
 * {
@@ -111,7 +111,7 @@
 
   .letter {
     font-family: "Roboto", sans-serif;
-    font-size: calc(var(--letterSize) * 0.45);
+    font-size: calc(var(--letter-size) * 0.45);
     font-weight: 100;
     margin: 0 0.25% 0.25% 0;
     display: flex;
@@ -129,7 +129,7 @@
 @media screen and (max-width: 768px) and (min-width: 600px) {
   .letter {
     font-family: "Roboto", sans-serif;
-    font-size: calc(var(--letterSize) * 0.5);
+    font-size: calc(var(--letter-size) * 0.5);
     font-weight: 100;
     margin: 0 0.5% 0.5% 0;
     display: flex;
@@ -142,7 +142,7 @@
   }
   .langBTN {
     color: black;
-    font-size: calc(var(--letterSize) * 0.5);
+    font-size: calc(var(--letter-size) * 0.5);
     cursor: pointer;
     margin-right: 1%;
   }
@@ -151,7 +151,7 @@
 @media screen and (max-width: 1024px) and (min-width: 769px) {
   .letter {
     font-family: "Roboto", sans-serif;
-    font-size: calc(var(--letterSize) * 0.5);
+    font-size: calc(var(--letter-size) * 0.5);
     font-weight: 100;
     margin: 0 0.5% 0.5% 0;
     display: flex;

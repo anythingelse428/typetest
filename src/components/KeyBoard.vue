@@ -2,8 +2,8 @@
   <div class="settings">
     <i class="bi bi-gear text-dark" @click="showSettings = !showSettings"></i>
     <div class="settings__container" v-show="showSettings">
-      <div class="volumeSettigs">
-        <div class="settigLine">
+      <div class="volumeSettings">
+        <div class="settingsLine">
           <label for="Iphone">Iphone sound</label
           ><input
             type="radio"
@@ -13,7 +13,7 @@
             v-model="choosnSound"
           />
         </div>
-        <div class="settigLine">
+        <div class="settingsLine">
           <label for="Mech">Mech sound</label
           ><input
             type="radio"
@@ -23,7 +23,7 @@
             v-model="choosnSound"
           />
         </div>
-        <div class="settigLine">
+        <div class="settingsLine">
           <label for="noSound">No sound</label
           ><input
             type="radio"
@@ -33,7 +33,7 @@
             v-model="choosnSound"
           />
         </div>
-        <div class="settigLine flex-column align-items-start">
+        <div class="settingsLine flex-column align-items-start">
           <label for="volume">Громкость</label
           ><input
             v-model="choosnSoundVol"
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="keyColorSettings">
-        <p class="keyColorSettings__text">Цветовая схема  клавиатуры</p>
+        <p class="keyColorSettings__text">Цветовая схема клавиатуры</p>
         <div class="keyColorSettings__themes">
           <i
             @click="switchTheme('blue')"
@@ -70,17 +70,16 @@
           ></i>
         </div>
       </div>
-      <div class="keyboardSettings">
-        <p class="keyboardSettings__text">
-          настроек пока нема спать хочу
-        </p>
-      </div>
     </div>
   </div>
-  <div class="qwerty align-items-center" v-if="lang == 'RU'">
+  <div
+    class="qwerty align-items-center"
+    aria-labelledby="RU"
+    v-show="lang == 'RU'"
+  >
     <div class="line" id="line1">
       <span
-        class="letter border rounded-circle btnFix"
+        class="letter btnFix"
         :class="[pressed == ruButtons1 ? 'clicked' : 'default']"
         @click="$emit('customChange', $event.target)"
         ref="ruButtons1"
@@ -93,7 +92,7 @@
     </div>
     <div class="line" id="line2">
       <span
-        class="letter border rounded-circle btnFix"
+        class="letter btnFix"
         :class="[pressed == ruButtons2 ? 'clicked' : 'default']"
         @click="$emit('customChange', $event.target)"
         :id="ruButtons2"
@@ -104,12 +103,12 @@
       </span>
     </div>
     <div class="line" id="line3">
-      <i
-        @click="switchLang(), $emit('whatLang', lang)"
-        class="bi bi-globe langBTN"
-      ></i>
       <span
-        class="letter border rounded-circle btnFix"
+        @click="switchLang(), $emit('whatLang', lang)"
+        class="bi bi-globe letter"
+      ></span>
+      <span
+        class="letter btnFix"
         :class="[pressed == ruButtons3 ? 'clicked' : 'default']"
         @click="$emit('customChange', $event.target)"
         :id="ruButtons3"
@@ -119,7 +118,7 @@
         {{ ruButtons3 }}
       </span>
       <span
-        class="letter border rounded-circle btnFix bi bi-backspace"
+        class="letter btnFix bi bi-backspace"
         @click="$emit('backspase', $event.target)"
       >
       </span>
@@ -132,11 +131,15 @@
     ></div>
   </div>
 
-  <div class="qwerty align-items-center" v-if="lang == 'EN'">
+  <div
+    class="qwerty align-items-center"
+    aria-labelledby="EN"
+    v-show="lang == 'EN'"
+  >
     <div class="line" id="line1">
       <span
         :class="[pressed == enButtons1 ? 'clicked' : 'default']"
-        class="letter border rounded-circle btnFix"
+        class="letter btnFix"
         @click="$emit('customChange', $event.target)"
         :id="enButtons1"
         v-for="enButtons1 in QWERTYen1"
@@ -148,7 +151,7 @@
 
     <div class="line" id="line2">
       <span
-        class="letter border rounded-circle btnFix"
+        class="letter btnFix"
         @click="$emit('customChange', $event.target)"
         :class="[pressed == enButtons2 ? 'clicked' : 'default']"
         :id="enButtons2"
@@ -160,13 +163,13 @@
     </div>
 
     <div class="line" id="line3">
-      <i
+      <span
         @click="switchLang(), $emit('whatLang', lang)"
-        class="bi bi-globe langBTN"
-      ></i>
+        class="bi bi-globe letter"
+      ></span>
       <span
         :class="[pressed == enButtons3 ? 'clicked' : 'default']"
-        class="letter border rounded-circle btnFix"
+        class="letter btnFix"
         @click="$emit('customChange', $event.target)"
         :id="enButtons3"
         v-for="enButtons3 in QWERTYen3"
@@ -175,7 +178,7 @@
         {{ enButtons3 }}
       </span>
       <span
-        class="letter border rounded-circle btnFix bi bi-backspace"
+        class="letter btnFix bi bi-backspace"
         @click="$emit('backspase', $event.target)"
       >
       </span>
@@ -206,8 +209,8 @@ export default {
       QWERTYen2: ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
       QWERTYen3: ["z", "x", "c", "v", "b", "n", "m", ".", ","],
       QWERTYru1: ["й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ"],
-      QWERTYru2: ["ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж"],
-      QWERTYru3: ["э", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", ","],
+      QWERTYru2: ["ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э"],
+      QWERTYru3: ["я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", ","],
       lang: "RU",
       pressed: "",
       letterHov: "#7e7cec",
@@ -261,11 +264,12 @@ export default {
       switch (this.lang) {
         case "RU":
           this.lang = "EN";
+          Themes.init("[aria-labelledby=EN]");
           break;
-        default:
+        case "EN":
           this.lang = "RU";
+          Themes.init("[aria-labelledby=RU]");
       }
-      console.log(this.lang);
     },
   },
 
@@ -327,36 +331,28 @@ export default {
   --letterBorder: #545454;
   --keyboard-color: #e4e4e4;
 }
-.settings{
-    position: relative;
-    right: 40%;
-}
-.settings__container {
-display: flex;
-    color: whitesmoke;
-    background-color: rgb(60 20 62 / 48%);
-    width: 40%;
-    left: 60%;
-    position: relative;
-    padding: 1em;
-    border-radius: 0.2em;
 
+.settings__container {
+  display: flex;
+  color: whitesmoke;
+  background-color: rgb(47 47 47 / 77%);
+  padding: 1em;
+  border-radius: 0.2em;
 }
-.volumeSettigs {
-  width: 30%;
+.volumeSettings {
+  width: 49%;
   display: flex;
   flex-direction: column;
 }
-.settigLine {
+.settingsLine {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-left: 2em;
 }
-.settigLine label {
+.settingsLine label {
   margin-right: 0.2em;
 }
-.settigLine input[type="radio"] {
+.settingsLine input[type="radio"] {
   -webkit-appearance: none;
   appearance: none;
   -webkit-print-color-adjust: exact;
@@ -368,25 +364,25 @@ display: flex;
   border: 0.15em solid;
   border-radius: 50%;
 }
-.settigLine input[type="radio"]:checked {
+.settingsLine input[type="radio"]:checked {
   background: rgba(22, 194, 94, 0.87);
   color: #00000000;
 }
-.keyColorSettings{
+.keyColorSettings {
   width: 30%;
 }
-.keyColorSettings__text{
+.keyColorSettings__text {
   font-size: medium;
   margin: 0;
 }
-.keyColorSettings__themes{
+.keyColorSettings__themes {
   display: flex;
   font-size: 2em;
 }
-.keyColorSettings__themes i{
+.keyColorSettings__themes i {
   cursor: pointer;
 }
-.keyboardSettings{
+.keyboardSettings {
   width: 30%;
 }
 .active {
@@ -407,7 +403,7 @@ display: flex;
 }
 
 #line3 i {
-  font-size: calc(var(--letterSize) * 0.4) !important;
+  font-size: calc(var(--letter-size) * 0.4) !important;
 }
 
 .qwerty {
@@ -452,19 +448,17 @@ textarea {
 }
 
 .letter {
-  width: var(--letterSize);
-  height: var(--letterSize);
+  width: var(--letter-size);
+  height: var(--letter-size);
   font-family: "Roboto", sans-serif;
-  font-size: calc(var(--letterSize) * 0.45);
+  font-size: calc(var(--letter-size) * 0.5);
   font-weight: 100;
   margin: 0 0.5% 0.5% 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border: 1px solid #dee2e6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .letter:hover {
@@ -487,7 +481,29 @@ textarea {
 
 .spaceBtn {
   width: 40%;
+  height: var(--letter-size);
   margin: 0.2em auto;
   border-color: var(--letter-background3) !important;
+}
+@media screen and (max-width: 600px) {
+  .letter {
+    width: 10em;
+    height: 3em;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5em;
+    font-weight: 100;
+    padding: 0.1em;
+    margin: 0 0.5% 0.5% 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.2em;
+  }
+  .settings__container {
+    flex-direction: column;
+  }
+  .settings__container > div{
+    margin-bottom: 2em;
+  }
 }
 </style>

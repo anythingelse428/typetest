@@ -44,8 +44,12 @@
       </h4>
     </div>
     <div class="home console">
-      <div v-if="lang == 'RU'" class="textContainer d-flex mb-3"  @click="ready=true, $refs.textArea.focus()">
-        <div v-if="!ready" class="isUserReady" >
+      <div
+        v-if="lang == 'RU'"
+        class="textContainer d-flex mb-3"
+        @click="(ready = true), $refs.textArea.focus(), (UserInput = '')"
+      >
+        <div v-if="!ready" class="isUserReady">
           <p class="text-light my-0">
             Жми на меня, когда будешь готов!<br />
             И начинай печатать!
@@ -60,7 +64,11 @@
           >
         </div>
       </div>
-      <div v-if="lang == 'EN'" class="textContainer d-flex mb-3">
+      <div
+        v-if="lang == 'EN'"
+        class="textContainer d-flex mb-3"
+        @click="(ready = true), $refs.textArea.focus(), (UserInput = '')"
+      >
         <div v-if="!ready" class="isUserReady text py-3">
           <p class="text-light my-0">Click me, if you ready!</p>
         </div>
@@ -75,7 +83,7 @@
       </div>
       <div class="my-0 py-0">
         <i
-          class="bi bi-eye  text-dark"
+          class="bi bi-eye text-dark"
           v-show="!showInputText"
           @click="showInputText = true"
         ></i>
@@ -97,9 +105,12 @@
           autofocus
         ></textarea>
       </div>
-      <div class="langAlert" v-show="keyboardAlert">
+      <div class="langAlert" v-show="keyboardAlert" ref="alert">
         <div class="langAlert__text">Поменяйте раскладку клавиатуры!</div>
-        <button class="langAlert__confirmButton btn btn-success mt-3" @click="keyboardAlert = false,UserInput = ''">
+        <button
+          class="langAlert__confirmButton btn btn-success mt-3"
+          @click="closeAlert(keyboardAlert)"
+        >
           Готово
         </button>
       </div>
@@ -155,6 +166,7 @@ export default {
     },
     langCheck(newLang) {
       this.lang = newLang;
+      this.UserInput = "";
     },
     backspace() {
       this.UserInput = this.UserInput.slice(0, -1);
@@ -162,12 +174,19 @@ export default {
     wakey(btn) {
       return (this.clickedLetter = btn);
     },
-
+    closeAlert() {
+      console.log(alert.__proto__);
+      this.UserInput = "";
+      this.$refs.textArea.focus();
+      console.log(this.$refs);
+      this.$refs.alert.style.display = "none";
+      this.$refs.alert = undefined;
+    },
     letterSetClass(letter, letterId) {
       const UserInputLength = this.UserInput.length;
       if (letterId === UserInputLength) return "letter-duration letter--cursor";
       if (letterId > UserInputLength - 1)
-        return "letter-duration letter--default"
+        return "letter-duration letter--default";
       /*  
         TODO:
           - Заменять пробелы на цвет, либо |, что бы было ясно что куда откуда|/
@@ -197,14 +216,13 @@ export default {
             "." +
             `${Math.floor((Date.now() - starttime) % 1000)}`;
         }
-        if (this.UserInput == ""||this.keyboardAlert) {
+        if (this.UserInput == "" || this.keyboardAlert) {
           this.timePretty = "0.00";
           this.time = Date.now();
           starttime = Date.now();
           clearInterval();
           return;
-        }
-       else {
+        } else {
           action = "start";
         }
       }, 100);
